@@ -8,7 +8,7 @@ pipeline{
 			steps{
 				bat "CD"
 				bat "CD /D currency-exchange-service"
-				bat "dir"
+				bat "CD"
 				bat "mvn clean install"
 				echo "build success"
 			}
