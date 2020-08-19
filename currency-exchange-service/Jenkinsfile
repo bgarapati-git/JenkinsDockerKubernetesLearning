@@ -6,7 +6,7 @@ pipeline{
 	stages{
 		stage('build and test'){
 			steps{
-				echo "${env.WORKSPACE}"
+				echo "${env.WORKSPACE} test"
 				bat "chdir currency-exchange-service"
 				bat "dir"
 				bat "mvn clean install"
