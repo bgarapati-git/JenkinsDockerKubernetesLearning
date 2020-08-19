@@ -4,6 +4,12 @@ pipeline{
 		USER_INFO = "environment variable"
 	}
 	stages{
+		stage ('change workspace'){
+			steps{
+				 dir("${env.workspace}/currency-exchange-service" ) {                    
+                		}
+			}
+		}
 		stage('build and test'){
 			steps{
 				echo "${env.WORKSPACE} test"
