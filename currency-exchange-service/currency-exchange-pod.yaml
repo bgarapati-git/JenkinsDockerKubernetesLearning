@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: currency-exchange-pod
+  labels:
+    name: currency-exchange-pod
+    app: currency-conversion-app
+spec:
+  containers:
+  - name: currency-exchange-pod
+    image: currency-exchange-service:latest
+    ports:
+     - containerPort: 8000
+  
