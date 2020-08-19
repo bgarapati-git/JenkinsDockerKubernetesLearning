@@ -12,17 +12,21 @@ pipeline{
 		}
 		stage('build and test'){
 			steps{
-				echo "${env.WORKSPACE} test"
-				bat "chdir ${env.WORKSPACE}/currency-exchange-service"
-				bat "dir"
-				bat "mvn clean install"
-				echo "build success"
+				 dir("${env.workspace}/currency-exchange-service" ) {        
+					echo "${env.WORKSPACE} test"
+					bat "chdir ${env.WORKSPACE}/currency-exchange-service"
+					bat "dir"
+					bat "mvn clean install"
+					echo "build success"
+				 }
 			}
 			post{
 				success{
-					junit '**/target/surefire-reports/TEST-*.xml'
-					archiveArtifacts 'target/*.jar'
-					echo "Results published"				
+					dir("${env.workspace}/currency-exchange-service" ) {        
+						junit '**/target/surefire-reports/TEST-*.xml'
+						archiveArtifacts 'target/*.jar'
+						echo "Results published"
+					}
 				}
 			}
 		}
@@ -43,16 +47,20 @@ pipeline{
 				echo "login success ${USER_INFO}"
 				echo "login success ${env.USER_INFO}"
 				
-				bat "docker build -t $dockerRepositoryUrl:$BUILD_NUMBER -t $dockerRepositoryUrl:latest -f Dockerfile ."
-				bat "docker push $dockerRepositoryUrl"
-				bat "docker rmi $dockerRepositoryUrl $dockerRepositoryUrl:$BUILD_NUMBER"
+				dir("${env.workspace}/currency-exchange-service" ) {        
+					bat "docker build -t $dockerRepositoryUrl:$BUILD_NUMBER -t $dockerRepositoryUrl:latest -f Dockerfile ."
+					bat "docker push $dockerRepositoryUrl"
+					bat "docker rmi $dockerRepositoryUrl $dockerRepositoryUrl:$BUILD_NUMBER"
+				}
 			}
 		}	
 		stage('deploy application'){
 			steps{
-				bat "kubectl config view"
-				bat "kubectl apply -f currency-exchange-pod.yaml"
-				bat "kubectl apply -f currency-exchange-clusterip-service.yaml"
+				dir("${env.workspace}/currency-exchange-service" ) {        
+					bat "kubectl config view"
+					bat "kubectl apply -f currency-exchange-pod.yaml"
+					bat "kubectl apply -f currency-exchange-clusterip-service.yaml"
+				}
 			}
 		}
 	
