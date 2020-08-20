@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: exchange-deployment
+  labels:
+    name: exchange-deployment
+    app: currency-conversion-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels: 
+      name: currency-exchange-pod
+      app: currency-conversion-app 
+  template:
+    metadata:
+      name: currency-exchange-pod
+      labels:
+        name: currency-exchange-pod
+        app: currency-conversion-app
+    spec:
+      containers:
+      - name: currency-exchange-pod
+        image: bgrapati/currency-exchange-service:latest
+        ports:
+         - containerPort: 8000 

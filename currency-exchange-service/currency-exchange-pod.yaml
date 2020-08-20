@@ -8,7 +8,7 @@ metadata:
 spec:
   containers:
   - name: currency-exchange-pod
-    image: currency-exchange-service:latest
+    image: bgrapati/currency-exchange-service:latest
     ports:
      - containerPort: 8000
   
