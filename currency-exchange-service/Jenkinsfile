@@ -13,9 +13,7 @@ pipeline{
 		stage('build and test'){
 			steps{
 				 dir("${env.workspace}/currency-exchange-service" ) {        
-					echo "${env.WORKSPACE} test"
-					bat "chdir ${env.WORKSPACE}/currency-exchange-service"
-					bat "dir"
+					echo "${env.WORKSPACE}"
 					bat "mvn clean install"
 					echo "build success"
 				 }
@@ -58,7 +56,7 @@ pipeline{
 			steps{
 				dir("${env.workspace}/currency-exchange-service" ) {        
 					bat "kubectl config view"
-					bat "kubectl apply -f currency-exchange-pod.yaml"
+					bat "kubectl apply -f currency-exchange-deployment.yaml"
 					bat "kubectl apply -f currency-exchange-clusterip-service.yaml"
 				}
 			}
