@@ -17,11 +17,7 @@
 	<properties>
 		<java.version>1.8</java.version>
 		<spring-cloud.version>Hoxton.SR4</spring-cloud.version>	
-<<<<<<< HEAD
-		<start-class>com.learning.microservices.currencyexchangeservice.CurrencyExchangeServiceApplication</start-class>		
-=======
 		<start-class>com.learning.microservices.currencyexchangeservice.CurrencyExchangeServiceApplication</start-class>	
->>>>>>> 42634f66f04178baaaddaa46924da5dd6ba4b238
 	</properties>
 
 	<dependencies>
