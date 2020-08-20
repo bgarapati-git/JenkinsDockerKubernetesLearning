@@ -3,9 +3,9 @@ package com.learning.microservices.currencyexchangeservice;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 //import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
-import org.springframework.context.annotation.Bean;
+//import org.springframework.context.annotation.Bean;
 
-import brave.sampler.Sampler;
+//import brave.sampler.Sampler;
 //import io.micrometer.core.instrument.LongTaskTimer.Sample;
 
 @SpringBootApplication
@@ -16,9 +16,9 @@ public class CurrencyExchangeServiceApplication {
 		SpringApplication.run(CurrencyExchangeServiceApplication.class, args);
 	}
 	
-	@Bean
-	public Sampler defaultSampler() {
-		return Sampler.ALWAYS_SAMPLE;
-	}
+//	@Bean
+//	public Sampler defaultSampler() {
+//		return Sampler.ALWAYS_SAMPLE;
+//	}
 
 }
