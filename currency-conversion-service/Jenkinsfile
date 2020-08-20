@@ -4,22 +4,35 @@ pipeline{
 		USER_INFO = "environment variable"
 	}
 	stages{
+		stage ('change workspace'){
+			steps{
+				 dir("${env.workspace}/currency-conversion-service" ) {                    
+                		}
+			}
+		}
 		stage('build and test'){
 			steps{
-				bat "mvn clean install"
-				echo "build success"
+				 dir("${env.workspace}/currency-conversion-service" ) {        
+					echo "${env.WORKSPACE} test"
+					bat "chdir ${env.WORKSPACE}/currency-conversion-service"
+					bat "dir"
+					bat "mvn clean install"
+					echo "build success"
+				 }
 			}
 			post{
 				success{
-					junit '**/target/surefire-reports/TEST-*.xml'
-					archiveArtifacts 'target/*.jar'
-					echo "Results published"				
+					dir("${env.workspace}/currency-conversion-service" ) {        
+						junit '**/target/surefire-reports/TEST-*.xml'
+						archiveArtifacts 'target/*.jar'
+						echo "Results published"
+					}
 				}
 			}
 		}
 		stage('docker package'){
 			environment{
-				dockerRepositoryUrl = "bgrapati/jenkins-calculator"
+				dockerRepositoryUrl = "bgrapati/currency-conversion-service"
 			}
 			
 			steps{
@@ -34,16 +47,20 @@ pipeline{
 				echo "login success ${USER_INFO}"
 				echo "login success ${env.USER_INFO}"
 				
-				bat "docker build -t $dockerRepositoryUrl:$BUILD_NUMBER -t $dockerRepositoryUrl:latest -f Dockerfile ."
-				bat "docker push $dockerRepositoryUrl"
-				bat "docker rmi $dockerRepositoryUrl $dockerRepositoryUrl:$BUILD_NUMBER"
+				dir("${env.workspace}/currency-conversion-service" ) {        
+					bat "docker build -t $dockerRepositoryUrl:$BUILD_NUMBER -t $dockerRepositoryUrl:latest -f Dockerfile ."
+					bat "docker push $dockerRepositoryUrl"
+					bat "docker rmi $dockerRepositoryUrl $dockerRepositoryUrl:$BUILD_NUMBER"
+				}
 			}
 		}	
 		stage('deploy application'){
 			steps{
-				bat "kubectl config view"
-				bat "kubectl apply -f jenkins-calculator_pod.yaml"
-				bat "kubectl apply -f jenkins-calculator-nodeport-service.yaml"
+				dir("${env.workspace}/currency-conversion-service" ) {        
+					bat "kubectl config view"
+					bat "kubectl apply -f currency-conversion-deployment.yaml"
+					bat "kubectl apply -f currency-conversion-clusterip-service.yaml"
+				}
 			}
 		}
 	

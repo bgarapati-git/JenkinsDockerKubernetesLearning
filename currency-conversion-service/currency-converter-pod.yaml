@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: currency-conversion-pod
+  labels:
+    name: currency-conversion-pod
+    app: currency-conversion-app
+spec:
+  containers:
+  - name: currency-conversion-pod
+    image: bgrapati/currency-conversion-service:latest
+    ports:
+     - containerPort: 8100
+  
