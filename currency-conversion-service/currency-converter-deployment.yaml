@@ -6,7 +6,7 @@ metadata:
     name: conversion-deployment
     app: currency-conversion-app
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels: 
       name: currency-conversion-pod
