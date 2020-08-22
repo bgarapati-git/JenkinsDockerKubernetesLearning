@@ -6,6 +6,7 @@ metadata:
     name: exchange-service
     app: currency-conversion-app
 spec:
+  type: NodePort
   ports:
    - port: 8000
      targetPort: 8000
