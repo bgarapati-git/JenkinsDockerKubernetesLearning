@@ -23,7 +23,7 @@ pipeline{
 			post{
 				success{
 					dir("${env.workspace}/currency-conversion-service" ) {        
-						junit '**/target/surefire-reports/TEST-*.xml'
+						//junit '**/target/surefire-reports/TEST-*.xml'
 						archiveArtifacts 'target/*.jar'
 						echo "Results published"
 					}
