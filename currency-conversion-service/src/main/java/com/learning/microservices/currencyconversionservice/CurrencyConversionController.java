@@ -19,12 +19,9 @@ public class CurrencyConversionController {
 
 	@Autowired
 	Environment environment;
-	
-	@Value("${EXCHANGE_SERVICE_SERVICE_HOST}")
-	private String exchangeServiceHost;
-	
-	@Value("${EXCHANGE_SERVICE_SERVICE_PORT}")
-	private String exchangeServicePort;
+
+	@Value("${currencyexchangeservice.baseurl}")
+	private String exchangeServiceBaseURL;
 	
 	/*
 	 * @Autowired CurrencyExchangeProxy currencyExchangeProxy;
@@ -41,7 +38,7 @@ public class CurrencyConversionController {
 		uriVariables.put("to", to);
 		
 		ResponseEntity<CurrencyConversionBean> respEntity =  
-				new RestTemplate().getForEntity("http://" + exchangeServiceHost + ":" + exchangeServicePort + 
+				new RestTemplate().getForEntity("http://" + exchangeServiceBaseURL + 
 												"/currency-exchange/from/{from}/to/{to}", CurrencyConversionBean.class, uriVariables);
 				
 		CurrencyConversionBean response = respEntity.getBody();
