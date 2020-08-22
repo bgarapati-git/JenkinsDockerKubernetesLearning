@@ -16,7 +16,7 @@ pipeline{
 					echo "${env.WORKSPACE} test"
 					bat "chdir ${env.WORKSPACE}/currency-conversion-service"
 					bat "dir"
-					bat "mvn clean install"
+					bat "mvn clean install -DskipTests"
 					echo "build success"
 				 }
 			}
